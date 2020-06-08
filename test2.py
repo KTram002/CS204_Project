@@ -3,33 +3,34 @@ import os
 
 from mininet.node import Controller
 from mininet.topo import Topo
+from mininet.link import TCLink
 
 class MyTopo ( Topo ):
     def __init__( self ):
         Topo.__init__( self )
     #def build(self , **_opts ):
         #    info( '*** Add switches\n')
-            s1 = self.addSwitch('s1')
-            s2 = self.addSwitch('s2')
-            s3 = self.addSwitch('s3')
+        s1 = self.addSwitch('s1')
+        s2 = self.addSwitch('s2')
+        s3 = self.addSwitch('s3')
 
-        #    info( '*** Add hosts\n')
-            h1 = self.addHost('h1', ip='10.0.0.1')
-            h2 = self.addHost('h2', ip='10.0.0.2')
-            h3 = self.addHost('h3', ip='10.0.0.3')
+    #    info( '*** Add hosts\n')
+        h1 = self.addHost('h1', ip='10.0.0.1')
+        h2 = self.addHost('h2', ip='10.0.0.2')
+        h3 = self.addHost('h3', ip='10.0.0.3')
 
-        #    info( '* Add links\n')
-            self.addLink(h1, s1, cls=TCLink, bw=10, delay='1ms', loss=1)
-            self.addLink(h2, s1, cls=TCLink, bw=10, delay='1ms', loss=1)
-            self.addLink(h3, s1, cls=TCLink, bw=10, delay='1ms', loss=1)
+    #    info( '* Add links\n')
+        self.addLink(h1, s1, cls=TCLink, bw=10, delay='1ms', loss=1)
+        self.addLink(h2, s1, cls=TCLink, bw=10, delay='1ms', loss=1)
+        self.addLink(h3, s1, cls=TCLink, bw=10, delay='1ms', loss=1)
 
-            self.addLink(h1, s2, cls=TCLink, bw=10, delay='1ms', loss=1)
-            self.addLink(h2, s2, cls=TCLink, bw=10, delay='1ms', loss=1)
-            self.addLink(h3, s2, cls=TCLink, bw=10, delay='1ms', loss=1)
+        self.addLink(h1, s2, cls=TCLink, bw=10, delay='1ms', loss=1)
+        self.addLink(h2, s2, cls=TCLink, bw=10, delay='1ms', loss=1)
+        self.addLink(h3, s2, cls=TCLink, bw=10, delay='1ms', loss=1)
 
-            self.addLink(h1, s3, cls=TCLink, bw=10, delay='1ms', loss=1)
-            self.addLink(h2, s3, cls=TCLink, bw=10, delay='1ms', loss=1)
-            self.addLink(h3, s3, cls=TCLink, bw=10, delay='1ms', loss=1)
+        self.addLink(h1, s3, cls=TCLink, bw=10, delay='1ms', loss=1)
+        self.addLink(h2, s3, cls=TCLink, bw=10, delay='1ms', loss=1)
+        self.addLink(h3, s3, cls=TCLink, bw=10, delay='1ms', loss=1)
 
 
 """
