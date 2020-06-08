@@ -22,19 +22,28 @@ def myNetwork():
     h3 = net.addHost('h3', ip='10.0.0.3')
 
     info( '*** Add links\n')
-    net.addLink(h1, s1, cls=TCLink, bw=1000, delay='1ms', loss=1)
-    net.addLink(h2, s1, cls=TCLink, bw=1000, delay='1ms', loss=1)
-    net.addLink(h3, s1, cls=TCLink, bw=1000, delay='1ms', loss=1)
+    net.addLink(h1, s1, cls=TCLink, bw=500, delay='1ms', loss=1)
+    net.addLink(h2, s1, cls=TCLink, bw=500, delay='1ms', loss=1)
+    net.addLink(h3, s1, cls=TCLink, bw=500, delay='1ms', loss=1)
 
     info( '*** Starting network\n')
     net.start()
-
+    net['s1'].cmd('ovs-vsctl add-port s1 enp0s9')
+    net['h1'].cmd('ifconfig h1-eth0 0')
+    net['h1'].cmd('dhclient h1-eth0')
+ 
+    net['h2'].cmd('ifconfig h2-eth0 0')
+    net['h2'].cmd('dhclient h2-eth0')
+ 
+    net['h3'].cmd('ifconfig h3-eth0 0')
+    net['h3'].cmd('dhclient h3-eth0')
+ 
     os.popen('ovs-vsctl add-port s1 enp0s3')
-
-#    h1.cmdPrint('dhclient '+h1.defaultIntf().name)
-#    h2.cmdPrint('dhclient '+h2.defaultIntf().name)
-#    h3.cmdPrint('dhclient '+h3.defaultIntf().name)
-
+ 
+    h1.cmdPrint('dhclient '+h1.defaultIntf().name)
+    h2.cmdPrint('dhclient '+h2.defaultIntf().name)
+    h3.cmdPrint('dhclient '+h3.defaultIntf().name)
+ 
     CLI(net)
     net.stop()
 
